@@ -1,9 +1,37 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Profile from "./Profile";
+import { CiMenuBurger } from "react-icons/ci";
+import { FaRegHeart } from "react-icons/fa";
+import { IoBagOutline } from "react-icons/io5";
+import SearchBar from "./Searchbar";
 
-const Navbar = () => {
+const Navbar = ({ onSearch }) => {  
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  const toggleDropdown = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    setIsOpen(false);
+    navigate("/login");
+  };
+
+  const handleSignup = () => {
+    alert("Signup Clicked!");
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setIsOpen(false);
+  };
+
   return (
-    <nav className="bg-amber-100 fixed top-0 left-0 w-full">
+    <nav className="bg-amber-200 sticky top-0 left-0 w-full shadow-md">
       <div className="max-w-screen-xl mx-auto px-4 py-2 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-4">
@@ -13,34 +41,37 @@ const Navbar = () => {
           <span className="text-xl font-semibold text-red-700">𝓼𝓱𝓸𝓹𝓹𝔂</span>
         </div>
 
-        {/* Search Bar */}
+        {/* Search Bar - Pass handleSearch as prop */}
         <div className="flex-1 mx-4">
-          <input
-            type="text"
-            placeholder="Search item"
-            className="w-full px-1 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        {/* Navigation Links */}
-        <div className="flex items-center space-x-4">
-          <Link to="/men" className="text-gray-700 hover:text-blue-500">Men</Link>
-          <Link to="/women" className="text-gray-700 hover:text-blue-500">Women</Link>
-          <Link to="/kids" className="text-gray-700 hover:text-blue-500">Kids</Link>
-          <Link to="/profile" className="text-gray-700 hover:text-blue-500 mr-3">Profile</Link>
+          <SearchBar onSearch={onSearch} />  {/* Pass the function here */}
         </div>
 
         {/* User and Cart Icons */}
         <div className="flex items-center space-x-4">
           <Link to="/wishlist" className="text-gray-700 hover:text-blue-500">
-            <i className="fas fa-heart">wishlist</i>
+          <FaRegHeart /> wishlist
           </Link>
           <Link to="/cart" className="text-gray-700 hover:text-blue-500">
-            <i className="fas fa-shopping-cart">cart</i>
+            <IoBagOutline /> Cart
           </Link>
-          <Link to="/profile" className="text-gray-700 hover:text-blue-500">
-            <i className="fas fa-user"></i>
-          </Link>
+
+          {/* Profile Dropdown */}
+          <div className="relative">
+            <button
+              onClick={toggleDropdown}
+              className="text-gray-700 hover:text-blue-500 flex items-center space-x-1"
+            >
+              <CiMenuBurger />
+            </button>
+            {isOpen && (
+              <Profile 
+                isLoggedIn={isLoggedIn}
+                handleLogin={handleLogin}
+                handleSignup={handleSignup}
+                handleLogout={handleLogout}
+              />
+            )}
+          </div>
         </div>
       </div>
     </nav>
