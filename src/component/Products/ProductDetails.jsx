@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import MockData from '../../utils/MockData';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import MockData from "../../utils/MockData";
 
 const ProductDetails = () => {
-  const { id } = useParams(); // Get product ID from URL
+  const { id } = useParams();
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    // Find the matching product by ID
     const foundProduct = MockData.products.find((p) => p.id.toString() === id);
-    setProduct(foundProduct);
+    setProduct(foundProduct || null);
   }, [id]);
 
   if (!product) {
-    return <div className="text-center text-xl mt-10">Product not found.</div>;
+    return <div className="text-center text-xl mt-10 text-red-600">Product not found.</div>;
   }
 
   return (
-    <div className="  p-6 bg-white shadow-md rounded-lg">
+    <div className="max-w-4xl mx-auto p-6 bg-amber-100 shadow-md rounded-lg">
       <div className="flex flex-col md:flex-row">
         {/* Product Image */}
         <img
           src={product.image}
           alt={product.title}
-          className="w-full md:w-1/2 object-cover rounded-lg mb-4 md:mb-0"
+          className="w-full md:w-1/2 h-64 object-cover rounded-lg mb-4 md:mb-0"
         />
         <div className="md:ml-6">
           {/* Product Details */}

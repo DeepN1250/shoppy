@@ -19,7 +19,7 @@ export const MockData = {
       "title": "Leather Jacket",
       "description": "Stylish leather jacket with a modern cut.",
       "price": 2999,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHywu5o8bYvQy1oMgnp6-W6-c3Sab3tQzlhg&s"
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAxxVGEOucn8mOam0Ku7nEdy0w53EpEU0XlA&s"
     },
     {
       "id": 4,
@@ -83,8 +83,8 @@ export const MockData = {
       "id": 101,
       "name": "Alice Johnson",
       "role": "buyer",
-      "email": "alice@example.com",
-      "password": "alice123",
+      "email": "alice@gmail.com",
+      "password": "123",
       "phone": "123-456-7890",
       "address": "123 Main St, Springfield, IL",
       "cart": [{ "productId": 2, "quantity": 1 }, { "productId": 10, "quantity": 2 }],
@@ -128,7 +128,7 @@ export const MockData = {
       "name": "Emma Wilson",
       "role": "seller",
       "email": "emma@gmail.com",
-      "password": "emma123",
+      "password": "123",
       "phone": "567-890-1234",
       "address": "202 Maple St, Springfield, IL",
       "cart": [],
