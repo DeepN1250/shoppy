@@ -1,34 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Profile from "./Profile";
 import { CiMenuBurger } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
 import { IoBagOutline } from "react-icons/io5";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setQuery } from "../Redux/SearchSlice";
 import { logout } from "../Redux/AuthSlice";
-
+import Profile from "./Profile";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const searchQuery = useSelector((state) => state.search.query);
   const cartCount = useSelector((state) => state.cart?.cartItems?.length ?? 0);
   const wishlistCount = useSelector((state) => state.wishlist?.wishlistItems?.length ?? 0);
-  const user=useSelector((state)=>state.auth.user)
-
-
+  const user = useSelector((state) => state.auth.user);
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  
   const handleSearch = (e) => {
     dispatch(setQuery(e.target.value));
   };
-  
 
   // Toggle dropdown menu
   const toggleDropdown = () => setIsOpen((prev) => !prev);
@@ -59,29 +53,14 @@ const Navbar = () => {
     <nav className="bg-amber-200 sticky top-0 left-0 w-full shadow-md z-50">
       <div className="max-w-screen-xl mx-auto px-4 py-2 flex items-center justify-between">
         
-        {/* Logo */}
-        {!user ?(
+        {/* Logo with Role-Based Home Navigation */}
         <div className="flex items-center space-x-4">
-          <Link to="/">
-            <img src="/shoppy.png" alt="Logo" className="h-8" />Home
-          </Link>
-          <span className="text-xl font-semibold text-red-700">𝓼𝓱𝓸𝓹𝓹𝔂</span>
-        </div>):user.role==='buyer' ?
-        (<div className="flex items-center space-x-4">
-          <Link to="/buyer">
-            <img src="/shoppy.png" alt="Logo" className="h-8" />Home
-          </Link>
-          <span className="text-xl font-semibold text-red-700">𝓼𝓱𝓸𝓹𝓹𝔂</span>
-        </div>):(
-          <div className="flex items-center space-x-4">
-          <Link to="/">
-            <img src="/shoppy.png" alt="Logo" className="h-8" />Home
+          <Link to={user ? (user.role === "buyer" ? "/buyer" : user.role === "seller" ? "/seller" : "/admin") : "/"}>
+            <img src="/shoppy.png" alt="Logo" className="h-8" /> Home
           </Link>
           <span className="text-xl font-semibold text-red-700">𝓼𝓱𝓸𝓹𝓹𝔂</span>
         </div>
-        )
 
-}
         {/* Search Bar */}
         <div className="flex flex-1 mx-4">
           <input
@@ -93,42 +72,62 @@ const Navbar = () => {
           />
         </div>
 
-        {/* Icons & Profile Dropdown */}
+        {/* Conditional Navbar Items */}
         <div className="flex items-center space-x-4">
-        <Link to="/wishlist" className="text-gray-700 hover:text-blue-500 flex items-center space-x-1 relative">
-            <FaRegHeart />
-            <span>Wishlist</span>
-            {wishlistCount > 0 && (
-              <span className="bg-red-500 text-white text-xs rounded-full px-2 absolute -top-2 -right-3">
-                {wishlistCount}
-              </span>
-            )}
-          </Link>
+          {/* Buyer-Specific Options */}
+          {(!user || user.role === "buyer") ? (
+            <>
+              <Link to="/wishlist" className="text-gray-700 hover:text-blue-500 flex items-center space-x-1 relative">
+                <FaRegHeart />
+                <span>Wishlist</span>
+                {wishlistCount > 0 && (
+                  <span className="bg-red-500 text-white text-xs rounded-full px-2 absolute -top-2 -right-3">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
 
-         <Link to="/cart" className="text-gray-700 hover:text-blue-500 flex items-center space-x-1 relative">
-            <IoBagOutline />
-            <span>Cart</span>
-            {cartCount > 0 && (
-              <span className="bg-red-500 text-white text-xs rounded-full px-2 absolute -top-2 -right-3">
-                {cartCount}
-              </span>
-            )}
-          </Link>
+              <Link to="/cart" className="text-gray-700 hover:text-blue-500 flex items-center space-x-1 relative">
+                <IoBagOutline />
+                <span>Cart</span>
+                {cartCount > 0 && (
+                  <span className="bg-red-500 text-white text-xs rounded-full px-2 absolute -top-2 -right-3">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
 
-          {/* Profile Dropdown */}
-          <div className="relative" ref={dropdownRef}>
-            <button onClick={toggleDropdown} className="text-gray-700 hover:text-blue-500">
-              <CiMenuBurger />
-            </button>
-            {isOpen && (
-              <Profile
-              isLoggedIn={!!user}
-              handleLogin={handleLogin}
-              // handleSignup={handleSignup}
-              handleLogout={handleLogout}
-              />
-            )}
-          </div>
+              {/* Profile Dropdown */}
+              <div className="relative" ref={dropdownRef}>
+                <button onClick={toggleDropdown} className="text-gray-700 hover:text-blue-500">
+                  <CiMenuBurger />
+                </button>
+                {isOpen && (
+                  <Profile
+                    isLoggedIn={!!user}
+                    handleLogin={handleLogin}
+                    handleLogout={handleLogout}
+                  />
+                )}
+              </div>
+            </>
+          ) : user?.role === "seller" ? (
+            <>
+              <Link to="/add" className="text-gray-700 hover:text-blue-500">
+                Add Product
+              </Link>
+              <Link to="/" className="text-gray-700 hover:text-blue-500">
+                View Products
+              </Link>
+              <button onClick={handleLogout} className="text-gray-700 hover:text-red-500">
+                Logout
+              </button>
+            </>
+          ):user?.role === "admin" ?(
+            <button onClick={handleLogout} className="text-gray-700 hover:text-red-500">
+                Logout
+              </button>
+          ) : null}
         </div>
       </div>
     </nav>

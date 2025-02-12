@@ -8,7 +8,7 @@ const Wishlist = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-amber-100 shadow-lg rounded-lg mt-10">
+    <div className="  p-6 bg-amber-100 shadow-lg rounded-lg min-h-screen">
       <h2 className="text-2xl font-bold mb-4 text-center">Wishlist</h2>
 
       {wishlistItems.length === 0 ? (

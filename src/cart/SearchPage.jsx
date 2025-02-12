@@ -1,33 +1,33 @@
-import React from "react";
+import React , { useState, useEffect, useCallback }  from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setQuery, clearQuery } from "../Redux/SearchSlice"; 
 
 const SearchPage = () => {
   const dispatch = useDispatch();
   const searchQuery = useSelector((state) => state.search.query);
+  const [inputValue, setInputValue] = useState(searchQuery);
 
-  // const handleChange = (e) => {
-  //   dispatch(setQuery(e.target.value));
-  // };
 
-  // const handleClear = () => {
-  //   dispatch(clearQuery());
-  // };
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      dispatch(setQuery(inputValue));
+    }, 1000);
+
+    return () => clearTimeout(delay);
+  }, [inputValue, dispatch]);
 
   const handleChange = useCallback((e) => {
     const value = e.target.value;
-    console.log("Search Input:", value); // ✅ Debugging log
     dispatch(setQuery(value));
   }, [dispatch]);
 
   const handleClear = () => {
     dispatch(clearQuery());
-    console.log("Search Cleared"); // ✅ Debugging log
   };
 
-  
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-100">
+    <div className="fixed top-0 left-0 w-screen h-screen  p-6 bg-amber-100 shadow-lg rounded-lg min-h-screen m-0">
       <h1 className="text-2xl font-bold mb-4">Search Page</h1>
       <input
         type="text"

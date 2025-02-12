@@ -1,17 +1,29 @@
-import React from "react";
-import { addToCart } from "../../Redux/CartSlice"; 
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../Redux/CartSlice";
 import { addToWishlist } from "../../Redux/WishlistSlice";
+import LoginPopup from "../LoginPopup"; // Import the Login Popup
 
-function ProductCard({ product}) {
-  const dispatch= useDispatch()
+function ProductCard({ product }) {
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
-  function handleAddToCart(){
-      dispatch(addToCart(product));
+  function handleAddToCart() {
+    if (!isAuthenticated) {
+      setShowLoginPopup(true);
+      return;
+    }
+    dispatch(addToCart(product));
   }
-  function handleAddToWishlist(){
+
+  function handleAddToWishlist() {
+    if (!isAuthenticated) {
+      setShowLoginPopup(true);
+      return;
+    }
     dispatch(addToWishlist(product));
-  };
+  }
 
   return (
     <div className="border border-gray-200 rounded-xl shadow-lg p-5 transition-transform hover:shadow-xl">
@@ -42,6 +54,9 @@ function ProductCard({ product}) {
           Add to Wishlist ❤️
         </button>
       </div>
+
+      {/* Show Login Popup when needed */}
+      {showLoginPopup && <LoginPopup onClose={() => setShowLoginPopup(false)} />}
     </div>
   );
 }

@@ -7,9 +7,9 @@ const searchSlice = createSlice({
   initialState,
   reducers: {
     setQuery: (state, action) => {
-      return { ...state, query: action.payload }; // ✅ Ensure new state is returned
+      return { ...state, query: action.payload }; 
     },
-    clearQuery: () => initialState, // ✅ Reset correctly
+    clearQuery: () => initialState, 
   },
 });
 

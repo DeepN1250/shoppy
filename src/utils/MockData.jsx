@@ -19,7 +19,7 @@ export const MockData = {
       "title": "Leather Jacket",
       "description": "Stylish leather jacket with a modern cut.",
       "price": 2999,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAxxVGEOucn8mOam0Ku7nEdy0w53EpEU0XlA&s"
+      "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQHK0sdIB-VybOlXONroBpGJAQl9DL9VfYLEF-1aS_CaArYUUH579b0EDQcGR_MYkDJXAohc_7f5z9dswREgpq6l4-aQvL9inlhrAxA7E686gWUzrczrPlAbQ&usqp=CAE"
     },
     {
       "id": 4,
@@ -33,14 +33,14 @@ export const MockData = {
       "title": "Sunglasses",
       "description": "UV-protected sunglasses with a trendy design.",
       "price": 799,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYdZeRQTtRgN8pz3k0Ogt5XLB7SIvBE7utlQ&s"
+      "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTDdazgTkPQt3sut-MLeCsaEzblYxTA_-LQlREsdA5_A6oBZvkOle0cG5Bg4bzTp25mzQ-Uy83CuneQT9fD8VZUjUmAPa_XHHKbzEoyULy6Wq2CN0Kp1nfj&usqp=CAE"
     },
     {
       "id": 6,
       "title": "Wrist Watch",
       "description": "Elegant wrist watch with a leather strap.",
       "price": 1999,
-      "image": "https://img.tatacliq.com/images/i19//658Wx734H/MP000000023041620_658Wx734H_202407262021321.jpeg"
+      "image": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTYmf44H_T8YtgvQVbiV5Pz7dNJd6DflXIrBSDg_O4IcLPHDGP7GW4fDcCfBqhaP25QuF9Zq5YEH0XZwbEUWkGrlWlTkpj5bCDNuPGa1FPBc5zTypTc6dnH&usqp=CAE"
     },
     {
       "id": 7,
@@ -76,6 +76,13 @@ export const MockData = {
       "description": "High-top, platform shoe with canvas upper, Lace-up style for adjustable fit, EVA cushioning for comfort",
       "price": 5499,
       "image": "https://www.converse.in/media/catalog/product/5/6/560845c_01.jpg?auto=webp&format=pjpg&width=960&height=1200&fit=cover"
+    },
+    {
+      "id": 12,
+      "title": "Black Leather Mini Shoulder Bag",
+      "description": "Gucci GG Marmont Matelasse Black Leather Mini Shoulder Bag 446744 ",
+      "price": 41399,
+      "image": "https://images-cdn.ubuy.co.in/67957385df2b482e7736b11c-gucci-gg-marmont-matelasse-black-leather.jpg"
     }
   ],
   "users": [
